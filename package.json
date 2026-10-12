@@ -1,0 +1,11 @@
+{
+  "name": "trackers_racemap",
+  "version": "1.0.0",
+  "description": "Map-based web app showing live and replayed sailing race tracker data (YellowBrick, TracTrac).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "private": true
+}

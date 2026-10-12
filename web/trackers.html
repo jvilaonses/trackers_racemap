@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trackers RaceMap</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="trackers.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">Trackers RaceMap</h1>
+
+    <form id="event-form" class="event-picker">
+      <label>Platform
+        <select id="provider-select"></select>
+      </label>
+      <label>Event
+        <select id="event-select"></select>
+      </label>
+      <label id="custom-key-label" hidden>Race key
+        <input id="custom-key" type="text" placeholder="e.g. rmsr2025" autocomplete="off" spellcheck="false">
+      </label>
+      <button type="submit" id="load-btn">Load</button>
+    </form>
+
+    <div class="event-status">
+      <span id="mode-pill" class="pill" hidden></span>
+      <span id="event-title" class="event-title"></span>
+      <a id="event-link" target="_blank" rel="noopener" hidden>official tracker ↗</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="map-pane">
+      <div id="map"></div>
+      <div class="timeline" id="timeline">
+        <button type="button" id="play-btn" title="Play / pause" disabled>▶</button>
+        <select id="speed-select" title="Replay speed">
+          <option value="60">1 min/s</option>
+          <option value="600" selected>10 min/s</option>
+          <option value="3600">1 h/s</option>
+          <option value="10800">3 h/s</option>
+        </select>
+        <input type="range" id="time-slider" min="0" max="0" step="60" value="0" disabled>
+        <span id="time-label" class="time-label">—</span>
+        <button type="button" id="live-btn" title="Jump to latest positions" disabled>Live</button>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="sidebar-controls">
+        <label>Division
+          <select id="division-select"></select>
+        </label>
+        <label>Tracks
+          <select id="tracks-select">
+            <option value="full">Full</option>
+            <option value="21600" selected>Last 6 h</option>
+            <option value="none">None</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="message" class="message" hidden></div>
+
+      <div class="table-wrap">
+        <table id="standings">
+          <thead>
+            <tr>
+              <th data-sort="lh" title="Line honours rank: finishers by finish time, then by distance to finish">LH</th>
+              <th data-sort="corr" id="corr-header" title="Rank on corrected time">Corr.</th>
+              <th data-sort="name">Boat</th>
+              <th data-sort="dtf" class="num" title="Distance to finish (nautical miles)">DTF nm</th>
+              <th data-sort="tmf" class="num" id="tmf-header" title="Time multiplying factor used for corrected time">TMF</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <p class="footnote" id="footnote"></p>
+    </aside>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="yellowbrick.js"></script>
+  <script src="tractrac.js"></script>
+  <script src="trackers.js"></script>
+</body>
+</html>
